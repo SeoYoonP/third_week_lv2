@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "books")
 @Getter
@@ -15,13 +18,9 @@ public class Book extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
     private String title;
-    @Column
     private String author;
-    @Column
     private String language;
-    @Column
     private String publisher;
 
     public Book(BookRequestDto bookRequestDto) {

@@ -29,12 +29,18 @@ public class MemberService {
         return new MemberResponseDto(member);
     }
 
-    public List<LoanHistoryDto> getLoansByMember(Long memberId) {
-        List<LoanRecord> loanRecords = loanRecordRepository.findByMemberIdOrderByLoanDateAsc(memberId);
+    public List<LoanHistoryDto> getLoansByMember(Long memberId, boolean isReturned) {
+        List<LoanRecord> loanRecords;
+        if (isReturned) {
+            loanRecords = loanRecordRepository.findByMemberIdOrderByLoanDateAsc(memberId);
+        } else {
+            loanRecords = loanRecordRepository.findByMemberIdAndIsReturnedFalseOrderByLoanDateAsc(memberId);
+        }
+
         return loanRecords.stream().map(loanRecord -> {
             Member member = memberRepository.findById(loanRecord.getMemberId())
                     .orElseThrow(() -> new IllegalArgumentException("회원 정보를 찾을 수 없습니다"));
-            Book book = bookRepository.findById(loanRecord.getMemberId())
+            Book book = bookRepository.findById(loanRecord.getBookId())
                     .orElseThrow(() -> new IllegalArgumentException("도서 정보를 찾을 수 없습니다"));
 
             String returnStatus = loanRecord.getIsReturned() ? "반납 완료" : "대출 중";

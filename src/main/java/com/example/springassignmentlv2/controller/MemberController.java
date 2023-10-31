@@ -26,10 +26,21 @@ public class MemberController {
         return memberService.registerMember(memberRequestDto);
     }
 
+    /* 대출 내역 조회 조건 추가에 따른 API 증설
+    * -한 회원의 모든 대출 내역 조회 */
+    @GetMapping("/{memberId}/loans/all")
+    public ResponseEntity<Map<String, Object>> getAllLoansByMember(@PathVariable Long memberId) {
+        return getLoanHistoryResponse(memberId, true);
+    }
+
     @GetMapping("/{memberId}/loans")
-    public ResponseEntity<?> getLoansByMember(@PathVariable Long memberId) {
+    public ResponseEntity<Map<String, Object>> getLoansByMember(@PathVariable Long memberId) {
+        return getLoanHistoryResponse(memberId, false);
+    }
+
+    private ResponseEntity<Map<String, Object>> getLoanHistoryResponse(Long memberId, boolean isReturned) {
         try {
-            List<LoanHistoryDto> loanHistoryList = memberService.getLoansByMember(memberId);
+            List<LoanHistoryDto> loanHistoryList = memberService.getLoansByMember(memberId, isReturned);
             return new ResponseEntity<>(Map.of("status", "success", "data", loanHistoryList), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(Map.of("status", "fail", "message", e.getMessage()), HttpStatus.BAD_REQUEST);

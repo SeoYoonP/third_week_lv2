@@ -1,9 +1,8 @@
 package com.example.springassignmentlv2.controller;
 
-import com.example.springassignmentlv2.dto.LoanHistoryDto;
-import com.example.springassignmentlv2.dto.MemberRequestDto;
-import com.example.springassignmentlv2.dto.MemberResponseDto;
-import com.example.springassignmentlv2.entity.LoanRecord;
+import com.example.springassignmentlv2.dto.Loan.LoanHistoryDto;
+import com.example.springassignmentlv2.dto.member.MemberRequestDto;
+import com.example.springassignmentlv2.dto.member.MemberResponseDto;
 import com.example.springassignmentlv2.service.LoanService;
 import com.example.springassignmentlv2.service.MemberService;
 import lombok.RequiredArgsConstructor;

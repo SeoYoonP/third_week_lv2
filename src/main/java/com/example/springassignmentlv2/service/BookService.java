@@ -1,7 +1,7 @@
 package com.example.springassignmentlv2.service;
 
-import com.example.springassignmentlv2.dto.BookRequestDto;
-import com.example.springassignmentlv2.dto.BookResponseDto;
+import com.example.springassignmentlv2.dto.book.BookRequestDto;
+import com.example.springassignmentlv2.dto.book.BookResponseDto;
 import com.example.springassignmentlv2.entity.Book;
 import com.example.springassignmentlv2.repository.BookRepository;
 import com.example.springassignmentlv2.repository.LoanRecordRepository;

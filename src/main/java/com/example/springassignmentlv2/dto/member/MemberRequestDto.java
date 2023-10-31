@@ -1,4 +1,4 @@
-package com.example.springassignmentlv2.dto;
+package com.example.springassignmentlv2.dto.member;
 
 import lombok.Getter;
 

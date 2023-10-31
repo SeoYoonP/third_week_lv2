@@ -1,8 +1,8 @@
 package com.example.springassignmentlv2.controller;
 
-import com.example.springassignmentlv2.dto.LoanRequestDto;
-import com.example.springassignmentlv2.dto.LoanResponseDto;
-import com.example.springassignmentlv2.dto.LoanReturnRequestDto;
+import com.example.springassignmentlv2.dto.Loan.LoanRequestDto;
+import com.example.springassignmentlv2.dto.Loan.LoanResponseDto;
+import com.example.springassignmentlv2.dto.Loan.LoanReturnRequestDto;
 import com.example.springassignmentlv2.service.LoanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

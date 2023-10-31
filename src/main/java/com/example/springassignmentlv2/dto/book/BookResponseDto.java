@@ -1,4 +1,4 @@
-package com.example.springassignmentlv2.dto;
+package com.example.springassignmentlv2.dto.book;
 
 import com.example.springassignmentlv2.entity.Book;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package com.example.springassignmentlv2.dto;
+package com.example.springassignmentlv2.dto.Loan;
 
 import lombok.Getter;
 import lombok.Setter;

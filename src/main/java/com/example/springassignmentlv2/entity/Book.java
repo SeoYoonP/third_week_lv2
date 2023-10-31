@@ -1,13 +1,10 @@
 package com.example.springassignmentlv2.entity;
 
-import com.example.springassignmentlv2.dto.BookRequestDto;
+import com.example.springassignmentlv2.dto.book.BookRequestDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "books")

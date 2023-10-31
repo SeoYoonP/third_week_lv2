@@ -1,13 +1,11 @@
 package com.example.springassignmentlv2.entity;
 
-import com.example.springassignmentlv2.dto.MemberRequestDto;
+import com.example.springassignmentlv2.dto.member.MemberRequestDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.cglib.core.Local;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity

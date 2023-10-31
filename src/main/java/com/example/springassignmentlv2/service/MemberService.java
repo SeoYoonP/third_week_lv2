@@ -1,8 +1,8 @@
 package com.example.springassignmentlv2.service;
 
-import com.example.springassignmentlv2.dto.LoanHistoryDto;
-import com.example.springassignmentlv2.dto.MemberRequestDto;
-import com.example.springassignmentlv2.dto.MemberResponseDto;
+import com.example.springassignmentlv2.dto.Loan.LoanHistoryDto;
+import com.example.springassignmentlv2.dto.member.MemberRequestDto;
+import com.example.springassignmentlv2.dto.member.MemberResponseDto;
 import com.example.springassignmentlv2.entity.Book;
 import com.example.springassignmentlv2.entity.LoanRecord;
 import com.example.springassignmentlv2.entity.Member;
@@ -12,7 +12,6 @@ import com.example.springassignmentlv2.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.sound.midi.MetaMessage;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -1,7 +1,7 @@
 package com.example.springassignmentlv2.controller;
 
-import com.example.springassignmentlv2.dto.BookRequestDto;
-import com.example.springassignmentlv2.dto.BookResponseDto;
+import com.example.springassignmentlv2.dto.book.BookRequestDto;
+import com.example.springassignmentlv2.dto.book.BookResponseDto;
 import com.example.springassignmentlv2.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

@@ -15,13 +15,15 @@ public class BookResponseDto {
     private String language;
     private String publisher;
     private LocalDateTime registrationDate;
+    private String isAvailableLoan;
 
-    public BookResponseDto(Book books) {
+    public BookResponseDto(Book books, boolean isAvailableLoan) {
         this.id = books.getId();
         this.title = books.getTitle();
         this.author = books.getAuthor();
         this.language = books.getLanguage();
         this.publisher = books.getPublisher();
         this.registrationDate = books.getRegistrationDate();
+        this.isAvailableLoan = isAvailableLoan ? "대출 가능" : "대출 불가";
     }
 }

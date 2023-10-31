@@ -1,5 +1,6 @@
 package com.example.springassignmentlv2.repository;
 
+import com.example.springassignmentlv2.entity.Book;
 import com.example.springassignmentlv2.entity.LoanRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 

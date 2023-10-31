@@ -56,6 +56,14 @@ public class LoanService {
 
         loanRecord.setIsReturned(true);
         loanRecord.setReturnDate(LocalDateTime.now());
+
+        if (loanRecord.getLoanDate().plusDays(7).isBefore(loanRecord.getReturnDate())){
+            Member member = memberRepository.findById(memberId)
+                    .orElseThrow(() -> new IllegalArgumentException(("해당 회원을 찾을 수 없습니다")));
+            member.setPenaltyExpirationDate(LocalDateTime.now().plusWeeks(2));
+            memberRepository.save(member);
+        }
+
         loanRecordRepository.save(loanRecord);
     }
 }

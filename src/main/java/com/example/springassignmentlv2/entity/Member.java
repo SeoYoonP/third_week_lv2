@@ -5,6 +5,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "members")
@@ -22,6 +26,7 @@ public class Member {
     @Column(unique = true)
     private String phoneNumber;
     private String address;
+    private LocalDateTime penaltyExpirationDate;
 
     public Member(MemberRequestDto memberRequestDto) {
         this.name = memberRequestDto.getName();
@@ -29,5 +34,8 @@ public class Member {
         this.personalId = memberRequestDto.getPersonalId();
         this.phoneNumber = memberRequestDto.getPhoneNumber();
         this.address = memberRequestDto.getAddress();
+    }
+    public void  setPenaltyExpirationDate(LocalDateTime penaltyExpirationDate){
+        this.penaltyExpirationDate = penaltyExpirationDate;
     }
 }

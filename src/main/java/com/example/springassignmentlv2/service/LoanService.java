@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 @Service
@@ -21,6 +22,17 @@ public class LoanService {
     private final BookRepository bookRepository;
     private final MemberRepository memberRepository;
     public LoanResponseDto loanBook(Long bookId, Long memberId) {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 도서ID가 존재하지 않습니다"));
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원ID는 등록되지 않은 ID입니다"));
+
+        LocalDateTime penaltyExpirationDate = member.getPenaltyExpirationDate();
+        if (member.getPenaltyExpirationDate() != null && penaltyExpirationDate.isAfter(LocalDateTime.now())) {
+            long penaltyDays = LocalDateTime.now().until(penaltyExpirationDate, ChronoUnit.DAYS);
+            throw new IllegalStateException(String.format("도서 반납이 연체되셨으므로 %d일동안 도서를 대출하실 수 없습니다.", penaltyDays));
+        }
+
         boolean hasReturnedLoanBookOrNot = loanRecordRepository.existsByMemberIdAndIsReturnedFalse(memberId);
         if (hasReturnedLoanBookOrNot) {
             throw new IllegalStateException("먼저 대출하신 도서를 반납 후 이용 부탁드립니다.");
@@ -29,11 +41,6 @@ public class LoanService {
         if (existingLoanBookOrNot.isPresent()) {
             throw new IllegalStateException("해당 도서는 대출 중입니다.");
         }
-
-        Book book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 도서ID가 존재하지 않습니다"));
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원ID는 등록되지 않은 ID입니다"));
 
         LoanRecord newLoan = new LoanRecord();
         newLoan.setBookId(bookId);

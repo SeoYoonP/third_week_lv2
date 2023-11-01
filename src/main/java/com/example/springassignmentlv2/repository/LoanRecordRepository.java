@@ -3,10 +3,11 @@ package com.example.springassignmentlv2.repository;
 import com.example.springassignmentlv2.entity.Book;
 import com.example.springassignmentlv2.entity.LoanRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-
+@Repository
 public interface LoanRecordRepository extends JpaRepository<LoanRecord, Long> {
     Optional<LoanRecord> findByBookIdAndIsReturnedFalse(Long bookId);
     boolean existsByMemberIdAndIsReturnedFalse(Long memberId);

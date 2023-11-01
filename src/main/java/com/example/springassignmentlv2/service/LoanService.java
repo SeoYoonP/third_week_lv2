@@ -33,12 +33,12 @@ public class LoanService {
             throw new IllegalStateException(String.format("도서 반납이 연체되셨으므로 %d일동안 도서를 대출하실 수 없습니다.", penaltyDays));
         }
 
-        boolean hasReturnedLoanBookOrNot = loanRecordRepository.existsByMemberIdAndIsReturnedFalse(memberId);
-        if (hasReturnedLoanBookOrNot) {
+        boolean hasNotReturnedLoanBook = loanRecordRepository.findByMemberIdAndIsReturnedFalse(memberId);
+        if (hasNotReturnedLoanBook) {
             throw new IllegalStateException("먼저 대출하신 도서를 반납 후 이용 부탁드립니다.");
         }
-        Optional<LoanRecord> existingLoanBookOrNot = loanRecordRepository.findByBookIdAndIsReturnedFalse(bookId);
-        if (existingLoanBookOrNot.isPresent()) {
+        Optional<LoanRecord> theBookIsLoan = loanRecordRepository.findByBookIdAndIsReturnedFalse(bookId);
+        if (theBookIsLoan.isPresent()) {
             throw new IllegalStateException("해당 도서는 대출 중입니다.");
         }
 

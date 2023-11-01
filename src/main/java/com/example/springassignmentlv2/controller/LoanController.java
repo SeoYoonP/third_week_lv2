@@ -18,7 +18,7 @@ public class LoanController {
     private final LoanService loanService;
 
     @PostMapping("/{bookId}/loans")
-    public ResponseEntity<?> loanBook(@PathVariable Long bookId, @RequestBody LoanRequestDto loanRequestDto) {
+    public ResponseEntity<Map<String, Object>> loanBook(@PathVariable Long bookId, @RequestBody LoanRequestDto loanRequestDto) {
         try {
             LoanResponseDto loanResponseDto = loanService.loanBook(bookId, loanRequestDto.getMemberId());
             return new ResponseEntity<>(Map.of("status", "success", "data", loanResponseDto), HttpStatus.CREATED);
@@ -28,7 +28,7 @@ public class LoanController {
     }
 
     @PutMapping("/{bookId}/return")
-    public ResponseEntity<?> returnBook(@PathVariable Long bookId, @RequestBody LoanReturnRequestDto loanReturnRequestDto) {
+    public ResponseEntity<Map<String, Object>> returnBook(@PathVariable Long bookId, @RequestBody LoanReturnRequestDto loanReturnRequestDto) {
         try {
             loanService.returnBook(bookId, loanReturnRequestDto.getMemberId());
             return new ResponseEntity<>(Map.of("status", "success", "message", "도서 반납이 완료되었습니다."), HttpStatus.OK);

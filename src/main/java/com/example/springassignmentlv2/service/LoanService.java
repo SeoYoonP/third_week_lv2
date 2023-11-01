@@ -21,6 +21,8 @@ public class LoanService {
     private final LoanRecordRepository loanRecordRepository;
     private final BookRepository bookRepository;
     private final MemberRepository memberRepository;
+
+    @Transactional
     public LoanResponseDto loanBook(Long bookId, Long memberId) {
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 도서ID가 존재하지 않습니다"));
@@ -28,12 +30,12 @@ public class LoanService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원ID는 등록되지 않은 ID입니다"));
 
         LocalDateTime penaltyExpirationDate = member.getPenaltyExpirationDate();
-        if (member.getPenaltyExpirationDate() != null && penaltyExpirationDate.isAfter(LocalDateTime.now())) {
+        if (penaltyExpirationDate != null && penaltyExpirationDate.isAfter(LocalDateTime.now())) {
             long penaltyDays = LocalDateTime.now().until(penaltyExpirationDate, ChronoUnit.DAYS);
             throw new IllegalStateException(String.format("도서 반납이 연체되셨으므로 %d일동안 도서를 대출하실 수 없습니다.", penaltyDays));
         }
 
-        boolean hasNotReturnedLoanBook = loanRecordRepository.findByMemberIdAndIsReturnedFalse(memberId);
+        boolean hasNotReturnedLoanBook = loanRecordRepository.existsByMemberIdAndIsReturnedFalse(memberId);
         if (hasNotReturnedLoanBook) {
             throw new IllegalStateException("먼저 대출하신 도서를 반납 후 이용 부탁드립니다.");
         }
@@ -42,20 +44,10 @@ public class LoanService {
             throw new IllegalStateException("해당 도서는 대출 중입니다.");
         }
 
-        LoanRecord newLoan = new LoanRecord();
-        newLoan.setBookId(bookId);
-        newLoan.setMemberId(memberId);
-        newLoan.setIsReturned(false);
-        newLoan.setLoanDate(LocalDateTime.now());
+        LoanRecord newLoan = new LoanRecord(book, member);
         loanRecordRepository.save(newLoan);
 
-        LoanResponseDto loanResponseDto = new LoanResponseDto();
-        loanResponseDto.setLoanId(newLoan.getId());
-        loanResponseDto.setBookId(bookId);
-        loanResponseDto.setMemberId(memberId);
-        loanResponseDto.setLoanDate(newLoan.getLoanDate());
-
-        return loanResponseDto;
+        return new LoanResponseDto(newLoan, book, member);
     }
 
     @Transactional

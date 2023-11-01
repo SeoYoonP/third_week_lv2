@@ -1,5 +1,6 @@
 package com.example.springassignmentlv2.entity;
 
+import com.example.springassignmentlv2.dto.Loan.LoanRequestDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,4 +23,11 @@ public class LoanRecord{
     private Boolean isReturned;
     private LocalDateTime loanDate;
     private LocalDateTime returnDate;
+
+    public LoanRecord(Book book, Member member) {
+        this.bookId = book.getId();
+        this.memberId = member.getId();
+        this.isReturned = false;
+        this.loanDate = LocalDateTime.now();
+    }
 }

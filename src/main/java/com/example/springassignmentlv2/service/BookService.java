@@ -28,7 +28,7 @@ public class BookService {
         return bookRepository.findAllByOrderByRegistrationDateDesc()
                 .stream()
                 .map(book -> new BookResponseDto(book, isBookAvailableForLoan(book.getId())))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public BookResponseDto getBook(Long bookId) {

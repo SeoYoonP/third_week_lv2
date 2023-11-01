@@ -7,6 +7,7 @@ import com.example.springassignmentlv2.entity.Member;
 import com.example.springassignmentlv2.repository.BookRepository;
 import com.example.springassignmentlv2.repository.LoanRecordRepository;
 import com.example.springassignmentlv2.repository.MemberRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +51,7 @@ public class LoanService {
         return loanResponseDto;
     }
 
+    @Transactional
     public void returnBook(Long bookId, Long memberId) {
         LoanRecord loanRecord = loanRecordRepository.findByBookIdAndMemberIdAndIsReturnedFalse(bookId, memberId)
                 .orElseThrow(() -> new IllegalArgumentException("관리자에게 문의하세요."));

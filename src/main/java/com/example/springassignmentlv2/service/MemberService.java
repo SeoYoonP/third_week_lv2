@@ -55,6 +55,6 @@ public class MemberService {
                     loanRecord.getReturnDate(),
                     returnStatus
             );
-        }).collect(Collectors.toList());
+        }).toList();
     }
 }

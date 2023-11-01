@@ -24,6 +24,10 @@ public class MemberService {
 
     public MemberResponseDto registerMember(MemberRequestDto memberRequestDto) {
         Member member = new Member(memberRequestDto);
+        if(memberRepository.existsByPersonalId(member.getPersonalId()))
+            throw new IllegalArgumentException("이미 회원가입이 되어있는 주민등록번호입니다.");
+        if(memberRepository.existsByPhoneNumber(member.getPhoneNumber()))
+            throw new IllegalArgumentException("이미 회원가입이 되어있는 전화번호입니다.");
         memberRepository.save(member);
         return new MemberResponseDto(member);
     }

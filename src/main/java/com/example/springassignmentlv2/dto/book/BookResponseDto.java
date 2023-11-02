@@ -17,13 +17,13 @@ public class BookResponseDto {
     private LocalDateTime registrationDate;
     private String isAvailableLoan;
 
-    public BookResponseDto(Book books, boolean isAvailableLoan) {
-        this.id = books.getId();
-        this.title = books.getTitle();
-        this.author = books.getAuthor();
-        this.language = books.getLanguage();
-        this.publisher = books.getPublisher();
-        this.registrationDate = books.getRegistrationDate();
+    public BookResponseDto(Book book, boolean isAvailableLoan) {
+        this.id = book.getId();
+        this.title = book.getTitle();
+        this.author = book.getAuthor();
+        this.language = book.getLanguage();
+        this.publisher = book.getPublisher();
+        this.registrationDate = book.getRegistrationDate();
         this.isAvailableLoan = isAvailableLoan ? "대출 가능" : "대출 불가";
     }
 }

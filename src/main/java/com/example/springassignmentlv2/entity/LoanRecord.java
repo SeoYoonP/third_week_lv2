@@ -18,10 +18,15 @@ public class LoanRecord{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private Long bookId;
+    @Column(nullable = false)
     private Long memberId;
+    @Column
     private Boolean isReturned;
+    @Column
     private LocalDateTime loanDate;
+    @Column
     private LocalDateTime returnDate;
 
     public LoanRecord(Book book, Member member) {

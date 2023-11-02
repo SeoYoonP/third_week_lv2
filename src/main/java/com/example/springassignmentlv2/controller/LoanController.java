@@ -2,7 +2,6 @@ package com.example.springassignmentlv2.controller;
 
 import com.example.springassignmentlv2.dto.Loan.LoanRequestDto;
 import com.example.springassignmentlv2.dto.Loan.LoanResponseDto;
-import com.example.springassignmentlv2.dto.Loan.LoanReturnRequestDto;
 import com.example.springassignmentlv2.service.LoanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,9 +27,9 @@ public class LoanController {
     }
 
     @PutMapping("/{bookId}/return")
-    public ResponseEntity<Map<String, Object>> returnBook(@PathVariable Long bookId, @RequestBody LoanReturnRequestDto loanReturnRequestDto) {
+    public ResponseEntity<Map<String, Object>> returnBook(@PathVariable Long bookId, @RequestBody LoanRequestDto loanRequestDto) {
         try {
-            loanService.returnBook(bookId, loanReturnRequestDto.getMemberId());
+            loanService.returnBook(bookId, loanRequestDto.getMemberId());
             return new ResponseEntity<>(Map.of("status", "success", "message", "도서 반납이 완료되었습니다."), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(Map.of("status", "fail", "message", e.getMessage()), HttpStatus.BAD_REQUEST);

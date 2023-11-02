@@ -48,17 +48,7 @@ public class MemberService {
 
             String returnStatus = loanRecord.getIsReturned() ? "반납 완료" : "대출 중";
 
-            return new LoanHistoryDto(
-                    book.getId(),
-                    member.getId(),
-                    member.getName(),
-                    member.getPhoneNumber(),
-                    book.getTitle(),
-                    book.getAuthor(),
-                    loanRecord.getLoanDate(),
-                    loanRecord.getReturnDate(),
-                    returnStatus
-            );
+            return new LoanHistoryDto(loanRecord, book, member);
         }).toList();
     }
 }
